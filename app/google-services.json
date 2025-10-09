@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "456118352991",
+    "firebase_url": "https://cu-mess-744ad-default-rtdb.firebaseio.com",
+    "project_id": "cu-mess-744ad",
+    "storage_bucket": "cu-mess-744ad.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456118352991:android:467e44ab04a0b40c042fea",
+        "android_client_info": {
+          "package_name": "com.example.cumess"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByInC82jEedsViFlb_OjcjDEayKw71iW0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456118352991:android:0d23c2ee04398a32042fea",
+        "android_client_info": {
+          "package_name": "com.malikparteek.cumess"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByInC82jEedsViFlb_OjcjDEayKw71iW0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
