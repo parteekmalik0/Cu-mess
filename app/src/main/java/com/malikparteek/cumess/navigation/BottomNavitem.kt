@@ -3,9 +3,6 @@ package com.malikparteek.cumess.navigation
 import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.malikparteek.cumess.R
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Public
 
 sealed class BottomNavItem(
     val route: String,
@@ -25,16 +22,17 @@ sealed class BottomNavItem(
         drawableRes = R.drawable.calendar
     )
 
-    object International : BottomNavItem(
-        route = "international",
-        title = "Intl",
-        drawableRes = R.drawable.globe
-    )
-
     object Timings : BottomNavItem(
         route = "timings",
         title = "Review",
         drawableRes = R.drawable.review
     )
+
+    object Play : BottomNavItem(
+        route = "Play",
+        title = "Play",
+        drawableRes = R.drawable.gaming
+    )
+
     
 }

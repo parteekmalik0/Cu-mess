@@ -1,5 +1,6 @@
 package com.malikparteek.cumess.screen
 
+import android.app.Activity
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -7,6 +8,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -14,14 +16,21 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.malikparteek.cumess.R
 import com.malikparteek.cumess.viewmodel.MenuViewModel
+import com.malikparteek.cumess.advertisement.InterstitialHelper
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TomorrowScreen(menuViewModel: MenuViewModel = viewModel()) {
     val menu by menuViewModel.tomorrowMenu.observeAsState()
+    val context = LocalContext.current
+    val activity = context as? Activity
 
-    // Fetch tomorrow menu
-    LaunchedEffect(Unit) { menuViewModel.fetchTomorrowMenu() }
+    // 🔹 Load menu and preload ad
+    LaunchedEffect(Unit) {
+        menuViewModel.fetchTomorrowMenu()
+        activity?.let { InterstitialHelper.preload(it) }
+    }
 
     val isLoading = menu == null
     val resolvedMenu = menu ?: Menu()
@@ -37,6 +46,7 @@ fun TomorrowScreen(menuViewModel: MenuViewModel = viewModel()) {
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+        contentWindowInsets = WindowInsets.safeDrawing,
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             TopAppBar(
@@ -66,7 +76,7 @@ fun TomorrowScreen(menuViewModel: MenuViewModel = viewModel()) {
             contentPadding = PaddingValues(bottom = 96.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            itemsIndexed(meals) { _, (title, items, image) ->
+            itemsIndexed(meals) { index, (title, items, image) ->
                 MealCard(
                     mealName = title,
                     items = items,
@@ -75,6 +85,13 @@ fun TomorrowScreen(menuViewModel: MenuViewModel = viewModel()) {
                     isToday = false
                 )
             }
+        }
+    }
+
+    // 🔹 Show interstitial after meals are displayed
+    LaunchedEffect(menu) {
+        if (!isLoading && InterstitialHelper.isLoaded()) {
+            activity?.let { InterstitialHelper.showOncePerSession(it) }
         }
     }
 }

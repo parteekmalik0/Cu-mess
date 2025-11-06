@@ -13,9 +13,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.malikparteek.cumess.R
 import com.malikparteek.cumess.viewmodel.MenuViewModel
-import androidx.compose.foundation.layout.navigationBarsPadding
+import kotlinx.coroutines.delay
 import BannerAdView
-import androidx.compose.ui.Alignment
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(menuViewModel: MenuViewModel = viewModel()) {
@@ -32,8 +32,17 @@ fun HomeScreen(menuViewModel: MenuViewModel = viewModel()) {
         Triple("Snacks (Boys)", menu.snacks ?: emptyList(), R.drawable.boy_snacks),
         Triple("Snacks (Girls)", menu.snacks_girls ?: emptyList(), R.drawable.girl_snacks),
         Triple("Dinner", menu.dinner ?: emptyList(), R.drawable.christmas_dinner),
-        Triple("Dinner (South Indian)", menu.dinner_south ?: emptyList(), R.drawable.christmas_dinner),
+        Triple("Dinner (South Indian)", menu.dinner_south ?: emptyList(), R.drawable.christmas_dinner)
     )
+
+    // Banner load state
+    var isBannerLoaded by remember { mutableStateOf(false) }
+
+    // Simulate or replace with actual ad load callback
+    LaunchedEffect(Unit) {
+        delay(1000) // optional, smoother UI
+        isBannerLoaded = true
+    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -63,7 +72,7 @@ fun HomeScreen(menuViewModel: MenuViewModel = viewModel()) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .padding(start = 16.dp, end = 16.dp, top = 16.dp)
+                .padding(horizontal = 16.dp, vertical = 16.dp)
                 .navigationBarsPadding(),
             contentPadding = PaddingValues(bottom = 96.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -79,15 +88,14 @@ fun HomeScreen(menuViewModel: MenuViewModel = viewModel()) {
                     isToday = true
                 )
 
-                // Show Ad after 3rd card (index == 2 because list is 0-based)
-                if (index == 2) {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                      //  BannerAdView()
-                    }
-                }
+                // Show banner only after 5th meal (index 4) — no preloaded gap
+                if (index == 4 && isBannerLoaded) {
+                    BannerAdView(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp)
+                    )
+              }
             }
         }
     }

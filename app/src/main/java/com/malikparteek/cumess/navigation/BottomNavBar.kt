@@ -5,7 +5,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -16,18 +16,15 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.malikparteek.cumess.advertisement.InterstitialHelper
 
 @Composable
-fun BottomNavBar(
-    navController: NavController,
-    useOncePerDay: Boolean = false // true = once per day, false = once per session
-) {
+fun BottomNavBar(navController: NavController) {
     val context = LocalContext.current
     val activity = context as? Activity
 
     val items = listOf(
         BottomNavItem.Today,
         BottomNavItem.Tomorrow,
-        BottomNavItem.International,
-        BottomNavItem.Timings
+        BottomNavItem.Timings,
+        BottomNavItem.Play
     )
 
     val isDarkTheme = isSystemInDarkTheme()
@@ -40,29 +37,19 @@ fun BottomNavBar(
         containerColor = backgroundColor,
         contentColor = unselectedColor
     ) {
-        val navBackStackEntry = navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry.value?.destination?.route
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentRoute = navBackStackEntry?.destination?.route
 
         items.forEach { item ->
             val selected = currentRoute == item.route
+
             NavigationBarItem(
                 selected = selected,
                 onClick = {
-                    if (item == BottomNavItem.Tomorrow && activity != null) {
-                        val navigate = {
-                            navController.navigate(item.route) {
-                                popUpTo(navController.graph.startDestinationId) { saveState = true }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        }
+                    if (!selected) {
+                        // Preload ad in background for next potential screen
+                        activity?.let { InterstitialHelper.preload(it) }
 
-                        if (useOncePerDay) {
-                            InterstitialHelper.showIfFirstOpenOfDay(activity) { navigate() }
-                        } else {
-                            InterstitialHelper.showOncePerSession(activity) { navigate() }
-                        }
-                    } else if (!selected) {
                         navController.navigate(item.route) {
                             popUpTo(navController.graph.startDestinationId) { saveState = true }
                             launchSingleTop = true
@@ -70,7 +57,12 @@ fun BottomNavBar(
                         }
                     }
                 },
-                label = { Text(text = item.title, color = if (selected) selectedColor else unselectedColor) },
+                label = {
+                    Text(
+                        text = item.title,
+                        color = if (selected) selectedColor else unselectedColor
+                    )
+                },
                 icon = {
                     item.drawableRes?.let {
                         Icon(

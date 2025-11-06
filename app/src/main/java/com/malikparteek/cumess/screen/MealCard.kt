@@ -1,6 +1,5 @@
 package com.malikparteek.cumess.screen
 
-import android.R
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*

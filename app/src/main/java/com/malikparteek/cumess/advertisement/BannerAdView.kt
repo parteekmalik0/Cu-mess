@@ -1,5 +1,4 @@
 
-import android.util.Log
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -14,7 +13,7 @@ import androidx.compose.foundation.layout.height
 @Composable
 fun BannerAdView(
     modifier: Modifier = Modifier,
-    adUnitId: String = "ca-app-pub-9714957294087753/8067390727"
+    adUnitId: String = "ca-app-pub-3940256099942544/6300978111"
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current

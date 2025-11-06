@@ -61,8 +61,6 @@ fun TimingsScreen() {
         ) {
             Spacer(modifier = Modifier.height(16.dp))
 
-            BannerAdView()
-
             // 🍽️ Weekday Timings
             TimingCard(
                 title = "Monday to Friday",
@@ -89,7 +87,7 @@ fun TimingsScreen() {
                 isDark = isDark
             )
 
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             // 🙌 Feedback Prompt
             Text(
@@ -117,11 +115,11 @@ fun TimingsScreen() {
                     tint = Color.Unspecified
                 )
 
-                Spacer(modifier = Modifier.width(5.dp))
+                Spacer(modifier = Modifier.width(2.dp))
 
                 Text(
                     text = "Give Feedback",
-                    fontSize = 22.sp,
+                    fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary,
                     textAlign = TextAlign.Center,
@@ -129,9 +127,17 @@ fun TimingsScreen() {
                 )
             }
 
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(modifier = Modifier.height(1.dp))
 
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 120.dp) // Ensures enough vertical space
+                    .padding(horizontal = 8.dp)
+                    .wrapContentHeight()
+            ) {
                 NativeAdComposable(context)
+            }
 
             Spacer(modifier = Modifier.height(16.dp))
 

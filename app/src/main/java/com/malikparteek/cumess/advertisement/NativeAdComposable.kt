@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import com.google.android.gms.ads.*
-import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
 import com.malikparteek.cumess.R
 
@@ -18,7 +17,7 @@ fun NativeAdComposable(context: Context) {
         factory = { ctx ->
             val frameLayout = FrameLayout(ctx)
 
-            val adLoader = AdLoader.Builder(ctx, "ca-app-pub-9714957294087753/5435137343")
+            val adLoader = AdLoader.Builder(ctx, "ca-app-pub-3940256099942544/2247696110")
                 .forNativeAd { nativeAd ->
                     val inflater = LayoutInflater.from(ctx)
                     val adView = inflater.inflate(R.layout.native_ad_layout, null) as NativeAdView
