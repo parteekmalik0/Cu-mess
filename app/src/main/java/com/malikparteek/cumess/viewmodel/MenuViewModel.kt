@@ -21,6 +21,10 @@ class MenuViewModel : ViewModel() {
     private val _tomorrowMenu = MutableLiveData<Menu>()
     val tomorrowMenu: LiveData<Menu> = _tomorrowMenu
 
+    // Overmorrow (day after tomorrow)
+    private val _overmorrowMenu = MutableLiveData<Menu>()
+    val overmorrowMenu: LiveData<Menu> = _overmorrowMenu
+
     private val _isLoading = MutableLiveData(true)
     val isLoading: LiveData<Boolean> = _isLoading
 
@@ -44,6 +48,15 @@ class MenuViewModel : ViewModel() {
         val tomorrowDate = getCurrentDate(1)
         fetchMenuFromDate("meals", tomorrowDate) { menu ->
             _tomorrowMenu.value = menu
+            _isLoading.value = false
+        }
+    }
+
+    fun fetchOvermorrowMenu() {
+        _isLoading.value = true
+        val overmorrowDate = getCurrentDate(2)
+        fetchMenuFromDate("meals", overmorrowDate) { menu ->
+            _overmorrowMenu.value = menu
             _isLoading.value = false
         }
     }

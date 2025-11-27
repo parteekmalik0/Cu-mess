@@ -4,6 +4,9 @@ import android.app.Activity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -14,6 +17,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.malikparteek.cumess.advertisement.InterstitialHelper
+import com.malikparteek.cumess.viewmodel.UpdatesViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.ui.Alignment
+import androidx.compose.foundation.background
+import androidx.compose.ui.draw.clip
 
 @Composable
 fun BottomNavBar(navController: NavController) {
@@ -23,14 +31,18 @@ fun BottomNavBar(navController: NavController) {
     val items = listOf(
         BottomNavItem.Today,
         BottomNavItem.Tomorrow,
-        BottomNavItem.Timings,
-        BottomNavItem.Play
+        BottomNavItem.Overmorrow,
+        BottomNavItem.Updates,
+        BottomNavItem.Timings
     )
 
     val isDarkTheme = isSystemInDarkTheme()
     val backgroundColor = MaterialTheme.colorScheme.background
     val selectedColor = MaterialTheme.colorScheme.primary
     val unselectedColor = if (isDarkTheme) Color.LightGray else Color.DarkGray
+
+    val updatesViewModel: UpdatesViewModel = viewModel()
+    val unread by updatesViewModel.unreadCount.collectAsState()
 
     NavigationBar(
         modifier = Modifier.navigationBarsPadding(),
@@ -47,9 +59,7 @@ fun BottomNavBar(navController: NavController) {
                 selected = selected,
                 onClick = {
                     if (!selected) {
-                        // Preload ad in background for next potential screen
                         activity?.let { InterstitialHelper.preload(it) }
-
                         navController.navigate(item.route) {
                             popUpTo(navController.graph.startDestinationId) { saveState = true }
                             launchSingleTop = true
@@ -64,20 +74,51 @@ fun BottomNavBar(navController: NavController) {
                     )
                 },
                 icon = {
-                    item.drawableRes?.let {
-                        Icon(
-                            painter = painterResource(id = it),
-                            contentDescription = item.title,
-                            modifier = Modifier.size(22.dp),
-                            tint = if (selected) selectedColor else unselectedColor
-                        )
-                    } ?: item.icon?.let {
-                        Icon(
-                            imageVector = it,
-                            contentDescription = item.title,
-                            modifier = Modifier.size(22.dp),
-                            tint = if (selected) selectedColor else unselectedColor
-                        )
+                    // If this is the Updates item and unread > 0, show red dot overlay
+                    if (item == BottomNavItem.Updates && unread > 0) {
+                        Box {
+                            item.drawableRes?.let {
+                                Icon(
+                                    painter = painterResource(id = it),
+                                    contentDescription = item.title,
+                                    modifier = Modifier.size(22.dp),
+                                    tint = if (selected) selectedColor else unselectedColor
+                                )
+                            } ?: item.icon?.let {
+                                Icon(
+                                    imageVector = it,
+                                    contentDescription = item.title,
+                                    modifier = Modifier.size(22.dp),
+                                    tint = if (selected) selectedColor else unselectedColor
+                                )
+                            }
+
+                            // red dot
+                            Box(
+                                modifier = Modifier
+                                    .size(10.dp)
+                                    .clip(CircleShape)
+                                    .background(Color.Red)
+                                    .align(Alignment.TopEnd)
+                                    .offset(x = 8.dp, y = (-4).dp)
+                            )
+                        }
+                    } else {
+                        item.drawableRes?.let {
+                            Icon(
+                                painter = painterResource(id = it),
+                                contentDescription = item.title,
+                                modifier = Modifier.size(20.dp),
+                                tint = if (selected) selectedColor else unselectedColor
+                            )
+                        } ?: item.icon?.let {
+                            Icon(
+                                imageVector = it,
+                                contentDescription = item.title,
+                                modifier = Modifier.size(20.dp),
+                                tint = if (selected) selectedColor else unselectedColor
+                            )
+                        }
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(

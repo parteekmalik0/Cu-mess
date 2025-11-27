@@ -84,11 +84,8 @@ dependencies {
 
     //in-app update
     implementation ("com.google.android.play:app-update:2.1.0")
-
     implementation("com.google.android.gms:play-services-ads:24.4.0") //for ad integration purpose
-
     implementation ("com.google.firebase:firebase-firestore-ktx:24.10.0") //firerstore integration
-
     implementation ("com.google.android.play:review-ktx:2.0.1")  //for app review
 
     //inmobi

@@ -1,7 +1,6 @@
 package com.malikparteek.cumess.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Composition
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -9,8 +8,9 @@ import androidx.navigation.compose.composable
 import com.malikparteek.cumess.screen.HomeScreen
 import com.malikparteek.cumess.screen.TimingsScreen
 import com.malikparteek.cumess.screen.TomorrowScreen
+import com.malikparteek.cumess.screen.OvermorrowScreen
+import com.malikparteek.cumess.screen.UpdatesScreen
 import com.malikparteek.cumess.viewmodel.MenuViewModel
-import com.malikparteek.cumess.ui.game.FlappyGameScreen
 
 @Composable
 fun NavGraph(navController: NavHostController) {
@@ -26,14 +26,16 @@ fun NavGraph(navController: NavHostController) {
         composable(BottomNavItem.Tomorrow.route) {
             TomorrowScreen(menuViewModel = menuViewModel)
         }
-
+        // Overmorrow (day after tomorrow)
+        composable(BottomNavItem.Overmorrow.route) {
+            OvermorrowScreen(menuViewModel = menuViewModel)
+        }
+        // Updates screen
+        composable(BottomNavItem.Updates.route) {
+            UpdatesScreen()
+        }
         composable(BottomNavItem.Timings.route) {
             TimingsScreen()
-        }
-
-        composable(BottomNavItem.Play.route){
-            FlappyGameScreen()
-
         }
     }
 }

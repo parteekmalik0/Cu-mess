@@ -1,6 +1,9 @@
 package com.malikparteek.cumess.navigation
 
 import androidx.annotation.DrawableRes
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.malikparteek.cumess.R
 
@@ -13,13 +16,25 @@ sealed class BottomNavItem(
     object Today : BottomNavItem(
         route = "today",
         title = "Today",
-        drawableRes = R.drawable.home_updated // 👈 Replace with your custom PNG file name
+        drawableRes = R.drawable.home_updated
     )
 
     object Tomorrow : BottomNavItem(
         route = "tomorrow",
-        title = "Tomorrow",
+        title = "Morrow",
         drawableRes = R.drawable.calendar
+    )
+
+    object Overmorrow : BottomNavItem(
+        route = "overmorrow",
+        title = "Next Day",
+        drawableRes = R.drawable.overmorrow
+    )
+
+    object Updates : BottomNavItem(
+        route = "updates",
+        title = "Updates",
+        drawableRes = R.drawable.bell
     )
 
     object Timings : BottomNavItem(
@@ -27,12 +42,4 @@ sealed class BottomNavItem(
         title = "Review",
         drawableRes = R.drawable.review
     )
-
-    object Play : BottomNavItem(
-        route = "Play",
-        title = "Play",
-        drawableRes = R.drawable.gaming
-    )
-
-    
 }
