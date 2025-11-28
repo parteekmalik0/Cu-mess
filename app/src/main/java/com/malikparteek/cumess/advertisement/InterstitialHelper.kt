@@ -15,7 +15,7 @@ object InterstitialHelper {
     private var isAdShownThisSession = false
 
     // ✅ Official Google test ID
-    private const val TEST_AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712"
+    private const val TEST_AD_UNIT_ID = "ca-app-pub-9714957294087753/7434332225"
 
     fun preload(context: Context, adUnitId: String = TEST_AD_UNIT_ID) {
         if (isAdLoaded || isAdShownThisSession) return

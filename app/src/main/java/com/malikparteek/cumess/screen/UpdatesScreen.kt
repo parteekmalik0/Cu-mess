@@ -1,6 +1,8 @@
 package com.malikparteek.cumess.screen
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -15,6 +17,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.foundation.shape.RoundedCornerShape
 import com.malikparteek.cumess.advertisement.NativeAdComposable
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -24,7 +28,7 @@ fun UpdatesScreen(
 ) {
     val updates by viewModel.updates.collectAsState()
     val error by viewModel.errorMessage.collectAsState()
-    val unreadCount by viewModel.unreadCount.collectAsState()
+    val context = LocalContext.current
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -56,35 +60,37 @@ fun UpdatesScreen(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Single elevated card that holds all updates (styled like meal cards)
+
+            // -------------------- CARD --------------------
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight(),
                 elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                shape = MaterialTheme.shapes.medium
+                shape = RoundedCornerShape(12.dp)
             ) {
-                Column(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
                 ) {
-                    // Header row: title + optional unread count
+
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Latest Updates",
-                            fontSize = 25.sp,
+                            text = "Latest Updates- Hostel & Mess",
+                            fontSize = 22.sp,
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.SemiBold
                         )
 
-                        if (unreadCount > 0) {
+                        if (updates.isNotEmpty()) {
                             Text(
-                                text = "$unreadCount new",
+                                text = "${updates.size} total",
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.primary
                             )
@@ -93,7 +99,6 @@ fun UpdatesScreen(
 
                     Spacer(modifier = Modifier.height(12.dp))
 
-                    // Error inline
                     if (error != null) {
                         Text(
                             text = "Error: ${error ?: "Unknown"}",
@@ -103,42 +108,64 @@ fun UpdatesScreen(
                         Spacer(modifier = Modifier.height(8.dp))
                     }
 
-
-                    // Updates content (all inside same card)
                     if (updates.isEmpty()) {
                         Text(
-                            text = "No updates",
+                            text = "No updates available",
+                            fontSize = 15.sp,
                             style = MaterialTheme.typography.bodyMedium
                         )
                     } else {
-                        updates.forEachIndexed { index, item: MenuUpdate ->
-                            Column(modifier = Modifier.fillMaxWidth()) {
-                                Text(
-                                    text = item.title,
-                                    style = MaterialTheme.typography.bodyLarge,
-                                    fontWeight = FontWeight.Medium,
-                                    maxLines = 1,
-                                    overflow = TextOverflow.Ellipsis
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-                                Text(
-                                    text = item.content,
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    maxLines = 5,
-                                    overflow = TextOverflow.Ellipsis
-                                )
-                            }
-
-                            if (index < updates.lastIndex) {
-                                Spacer(modifier = Modifier.height(12.dp))
-                                Divider()
-                                Spacer(modifier = Modifier.height(12.dp))
+                        LazyColumn(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentPadding = PaddingValues(vertical = 4.dp)
+                        ) {
+                            items(updates, key = { it.id }) { item ->
+                                UpdateItemRow(item)
+                                if (item != updates.last()) {
+                                    Spacer(modifier = Modifier.height(12.dp))
+                                    Divider()
+                                    Spacer(modifier = Modifier.height(12.dp))
+                                }
                             }
                         }
                     }
                 }
             }
-        }
 
+            // -------------------- NATIVE AD BELOW CARD --------------------
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = 120.dp)
+                    .padding(horizontal = 8.dp)
+                    .wrapContentHeight()
+            ) {
+                NativeAdComposable(context)
+            }
+        }
+    }
+}
+
+@Composable
+private fun UpdateItemRow(item: MenuUpdate) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = item.title,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Medium,
+            maxLines = 10,
+            overflow = TextOverflow.Ellipsis
+        )
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        Text(
+            text = item.content,
+            style = MaterialTheme.typography.bodyMedium,
+            maxLines = 10,
+            overflow = TextOverflow.Ellipsis
+        )
     }
 }

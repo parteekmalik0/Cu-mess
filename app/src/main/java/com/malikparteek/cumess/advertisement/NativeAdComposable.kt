@@ -17,7 +17,7 @@ fun NativeAdComposable(context: Context) {
         factory = { ctx ->
             val frameLayout = FrameLayout(ctx)
 
-            val adLoader = AdLoader.Builder(ctx, "ca-app-pub-3940256099942544/2247696110")
+            val adLoader = AdLoader.Builder(ctx, "ca-app-pub-9714957294087753/9404819551")
                 .forNativeAd { nativeAd ->
                     val inflater = LayoutInflater.from(ctx)
                     val adView = inflater.inflate(R.layout.native_ad_layout, null) as NativeAdView

@@ -13,8 +13,14 @@ data class MenuUpdate(
     val id: String,
     val title: String,
     val content: String,
-    val isRead: Boolean = false
+    val isRead: Boolean = false,
+
+    // NEW FIELDS
+    val messName: String? = null,
+    val menu: List<String>? = null,
+    val date: String? = null
 )
+
 
 class UpdatesRepository(
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance(),

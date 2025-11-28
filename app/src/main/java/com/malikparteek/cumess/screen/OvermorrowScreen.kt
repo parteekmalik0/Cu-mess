@@ -108,9 +108,8 @@ fun OvermorrowScreen(menuViewModel: MenuViewModel = viewModel()) {
                         isToday = false
                     )
                 }
-
                 // Show banner only after 5th meal (index 4) — same as HomeScreen
-                if (index == 1 && isBannerLoaded) {
+                if (index == 2 && isBannerLoaded) {
                     item {
                         BannerAdView(
                             modifier = Modifier
@@ -120,13 +119,6 @@ fun OvermorrowScreen(menuViewModel: MenuViewModel = viewModel()) {
                     }
                 }
             }
-        }
-    }
-
-    // Show interstitial after loading (similar to TomorrowScreen behavior)
-    LaunchedEffect(menu) {
-        if (!isLoading && InterstitialHelper.isLoaded()) {
-            activity?.let { InterstitialHelper.showOncePerSession(it) }
         }
     }
 }

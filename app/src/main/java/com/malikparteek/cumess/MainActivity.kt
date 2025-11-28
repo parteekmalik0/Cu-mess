@@ -33,6 +33,8 @@ class MainActivity : ComponentActivity() {
         FirebaseApp.initializeApp(this)
         MobileAds.initialize(this) {}
 
+        InterstitialHelper.preload(this)
+
         // Firestore - offline persistence
         val firestore = FirebaseFirestore.getInstance()
         val settings = FirebaseFirestoreSettings.Builder()

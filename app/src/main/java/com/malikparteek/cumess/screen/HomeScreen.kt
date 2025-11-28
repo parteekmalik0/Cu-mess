@@ -87,15 +87,6 @@ fun HomeScreen(menuViewModel: MenuViewModel = viewModel()) {
                     isLoading = isLoading,
                     isToday = true
                 )
-
-                // Show banner only after 5th meal (index 4) — no preloaded gap
-                if (index == 4 && isBannerLoaded) {
-                    BannerAdView(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp)
-                    )
-              }
             }
         }
     }

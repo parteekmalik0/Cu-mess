@@ -1,16 +1,12 @@
 package com.malikparteek.cumess.navigation
 
 import androidx.annotation.DrawableRes
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.CalendarToday
-import androidx.compose.ui.graphics.vector.ImageVector
 import com.malikparteek.cumess.R
 
 sealed class BottomNavItem(
     val route: String,
     val title: String,
-    val icon: ImageVector? = null,
+    val showAd: Boolean = false,
     @DrawableRes val drawableRes: Int? = null
 ) {
     object Today : BottomNavItem(
@@ -22,6 +18,7 @@ sealed class BottomNavItem(
     object Tomorrow : BottomNavItem(
         route = "tomorrow",
         title = "Morrow",
+        showAd = true,   // 🔥 show interstitial when clicked
         drawableRes = R.drawable.calendar
     )
 

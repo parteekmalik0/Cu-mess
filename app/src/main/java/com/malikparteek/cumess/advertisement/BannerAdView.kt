@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.height
 @Composable
 fun BannerAdView(
     modifier: Modifier = Modifier,
-    adUnitId: String = "ca-app-pub-3940256099942544/6300978111"
+    adUnitId: String = "ca-app-pub-9714957294087753/1429416171"
 ) {
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
