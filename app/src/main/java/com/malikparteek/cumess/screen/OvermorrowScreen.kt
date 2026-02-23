@@ -54,12 +54,12 @@ fun OvermorrowScreen(menuViewModel: MenuViewModel = viewModel()) {
     val resolvedMenu = menu ?: Menu()
 
     val meals = listOf(
-        Triple("Breakfast", resolvedMenu.breakfast ?: emptyList(), R.drawable.breakfast),
-        Triple("Lunch", resolvedMenu.lunch ?: emptyList(), R.drawable.lunch_0),
-        Triple("Snacks (Boys)", resolvedMenu.snacks ?: emptyList(), R.drawable.boy_snacks),
-        Triple("Snacks (Girls)", resolvedMenu.snacks_girls ?: emptyList(), R.drawable.girl_snacks),
-        Triple("Dinner", resolvedMenu.dinner ?: emptyList(), R.drawable.christmas_dinner),
-        Triple("Dinner (South Indian)", resolvedMenu.dinner_south ?: emptyList(), R.drawable.christmas_dinner)
+        Triple("Breakfast", resolvedMenu.breakfast ?: emptyList(), R.drawable.english_breakfast),
+        Triple("Lunch", resolvedMenu.lunch ?: emptyList(), R.drawable.new_lunch),
+        Triple("Snacks (Boys)", resolvedMenu.snacks ?: emptyList(), R.drawable.new_boysnacks),
+        Triple("Snacks (Girls)", resolvedMenu.snacks_girls ?: emptyList(), R.drawable.new_girlsnacks),
+        Triple("Dinner", resolvedMenu.dinner ?: emptyList(), R.drawable.new_dinner),
+        Triple("Dinner (South Indian)", resolvedMenu.dinner_south ?: emptyList(), R.drawable.new_dinner)
     )
 
     Scaffold(

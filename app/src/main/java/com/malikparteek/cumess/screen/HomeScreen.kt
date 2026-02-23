@@ -27,12 +27,12 @@ fun HomeScreen(menuViewModel: MenuViewModel = viewModel()) {
     }
 
     val meals = listOf(
-        Triple("Breakfast", menu.breakfast ?: emptyList(), R.drawable.breakfast),
-        Triple("Lunch", menu.lunch ?: emptyList(), R.drawable.lunch_0),
-        Triple("Snacks (Boys)", menu.snacks ?: emptyList(), R.drawable.boy_snacks),
-        Triple("Snacks (Girls)", menu.snacks_girls ?: emptyList(), R.drawable.girl_snacks),
-        Triple("Dinner", menu.dinner ?: emptyList(), R.drawable.christmas_dinner),
-        Triple("Dinner (South Indian)", menu.dinner_south ?: emptyList(), R.drawable.christmas_dinner)
+        Triple("Breakfast", menu.breakfast ?: emptyList(), R.drawable.english_breakfast),
+        Triple("Lunch", menu.lunch ?: emptyList(), R.drawable.new_lunch),
+        Triple("Snacks (Boys)", menu.snacks ?: emptyList(), R.drawable.new_boysnacks),
+        Triple("Snacks (Girls)", menu.snacks_girls ?: emptyList(), R.drawable.new_girlsnacks),
+        Triple("Dinner", menu.dinner ?: emptyList(), R.drawable.new_dinner),
+        Triple("Dinner (South Indian)", menu.dinner_south ?: emptyList(), R.drawable.new_dinner)
     )
 
     // Banner load state

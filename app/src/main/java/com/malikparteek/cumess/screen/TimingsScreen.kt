@@ -28,7 +28,7 @@
         val isDark = isSystemInDarkTheme()
         val context = LocalContext.current
         val feedbackUrl =
-            "https://sodexo-diy-surveys.esaas.inmoment.eu/cgi-bin/qwebcorporate?idx=DV3M8V&m=1"
+            "https://docs.google.com/forms/d/e/1FAIpQLSfrHgiCNVypRt-StJWH1MhYiollYUQ3Rv6kpMI3ZV361AMcbQ/viewform"
 
         Scaffold(
             containerColor = MaterialTheme.colorScheme.background,
@@ -91,7 +91,7 @@
 
                 // 🙌 Feedback Prompt
                 Text(
-                    text = "Click for meal feedback",
+                    text = "Click for meal feedback - CU",
                     fontSize = 16.sp,
                     fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
@@ -118,7 +118,7 @@
                     Spacer(modifier = Modifier.width(2.dp))
 
                     Text(
-                        text = "Give Feedback",
+                        text = "Give Meal Feedback",
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary,
@@ -137,12 +137,12 @@
                         .wrapContentHeight()
                 ) {
                     NativeAdComposable(context)
-                }
+               }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = "Made with ❤️ For You - N",
+                    text = "Made with ❤️ For Students",
                     fontSize = 12.sp,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
                     modifier = Modifier.fillMaxWidth(),

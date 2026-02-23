@@ -13,8 +13,8 @@ android {
         applicationId = "com.malikparteek.cumess"
         minSdk = 29
         targetSdk = 35
-        versionCode = 28
-        versionName = "29.11.25"
+        versionCode = 29
+        versionName = "24.02.26"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

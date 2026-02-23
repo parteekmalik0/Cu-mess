@@ -20,6 +20,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 import androidx.compose.ui.text.style.TextAlign
 
+
 @Composable
 fun MealCard(
     mealName: String,

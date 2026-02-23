@@ -12,26 +12,26 @@ sealed class BottomNavItem(
     object Today : BottomNavItem(
         route = "today",
         title = "Today",
-        drawableRes = R.drawable.home_updated
+        drawableRes = R.drawable.new_home
     )
 
     object Tomorrow : BottomNavItem(
         route = "tomorrow",
         title = "Morrow",
         showAd = true,   // 🔥 show interstitial when clicked
-        drawableRes = R.drawable.calendar
+        drawableRes = R.drawable.new_tomorrow
     )
 
     object Overmorrow : BottomNavItem(
         route = "overmorrow",
-        title = "Next Day",
-        drawableRes = R.drawable.overmorrow
+        title = "NextDay",
+        drawableRes = R.drawable.new_overmorrow
     )
 
     object Updates : BottomNavItem(
         route = "updates",
-        title = "Updates",
-        drawableRes = R.drawable.bell
+        title = "PaperPilot",
+        drawableRes = R.drawable.pdf
     )
 
     object Timings : BottomNavItem(
