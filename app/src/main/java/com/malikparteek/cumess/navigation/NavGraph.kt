@@ -11,6 +11,8 @@ import com.malikparteek.cumess.screen.TomorrowScreen
 import com.malikparteek.cumess.screen.OvermorrowScreen
 import com.malikparteek.cumess.screen.UpdatesScreen
 import com.malikparteek.cumess.viewmodel.MenuViewModel
+import com.malikparteek.cumess.screen.pdf.ImageToPdfScreen
+import com.malikparteek.cumess.screen.pdf.PdfDashboardScreen
 
 @Composable
 fun NavGraph(navController: NavHostController) {
@@ -32,10 +34,25 @@ fun NavGraph(navController: NavHostController) {
         }
         // Updates screen
         composable(BottomNavItem.Updates.route) {
-            UpdatesScreen()
+            PdfDashboardScreen(navController)
         }
         composable(BottomNavItem.Timings.route) {
             TimingsScreen()
         }
+        composable("pdf_dashboard") {
+            PdfDashboardScreen(navController)
+        }
+
+        composable("image_to_pdf") {
+            ImageToPdfScreen()
+        }
+
+//        composable("merge_pdf") {
+//            MergePdfScreen()
+//        }
+//
+//        composable("edit_pdf") {
+//            EditPdfScreen()
+//        }
     }
 }
